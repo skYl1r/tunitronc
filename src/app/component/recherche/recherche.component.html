@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-body">
+
+    <div class="form-group col-6">
+      <label>Rechercher</label>
+      <div class="form-group">
+        <input class="form-control mr-sm-2  " type="text" placeholder="Rechercher" aria-label="Search">
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="form-group col-3">
+        <label>Gouvernorat</label>
+        <select (change)="getVille($event)" (change)="filterAnnoncesByGouvernorat($event)" name="gouvernorat"
+                class="form-control">
+          <option selected>Choisissez ville</option>
+
+          <!--<option *ngFor="let g of gov" [value]=g.name>-->
+            <!--{{g.name}}-->
+          <!--</option>-->
+        </select>
+      </div>
+
+      <div class="form-group col-3">
+        <label>Ville</label>
+        <select name="ville" (change)="filterAnnoncesByVille($event)" class="form-control">
+          <option selected>Choisissez ville</option>
+          <option *ngFor="let v of ville" [value]="v">
+            {{v}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-3">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="location" name="location"/>
+          <label class="custom-control-label " for="location">Location</label>
+        </div>
+      </div>
+      <div class="form-group col-3">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="echange" name="echange"/>
+          <label class="custom-control-label " for="echange">Echange</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

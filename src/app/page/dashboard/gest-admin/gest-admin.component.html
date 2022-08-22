@@ -1,0 +1,82 @@
+<div class="container ">
+  <h4 class="title"><a routerLink="/Dashboard">Dashboard</a> / Gestion des Administrateurs</h4>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><h6>Liste Administrateurs</h6></div>
+    </div>
+    <div class="card-body">
+      <div class="table  table-hover table-sm table-striped">
+        <table class="table" *ngIf="users">
+          <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Date ajout</th>
+            <th>Roles</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let u of admins ; let i = index">
+            <th scope="row">{{i}}</th>
+            <td>{{u.username}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.dateAdmin | date : 'dd/MM/y, HH:mm:ss '}}</td>
+            <td>ADMIN</td>
+            <td>
+              <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" data-placement="top" title="Retirer"
+                      data-original-title="remove" (click)="onRemoveAdmin(u)"><i class="fas fa-user-slash"></i></button>
+              <button class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Supprimer"
+                      data-original-title="Delete" (click)="onDelete(u)"><i class="fa fa-trash font-14"></i></button>
+
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><h6>Liste Abonnés</h6></div>
+    </div>
+    <div class="card-body">
+      <div class="table  table-hover table-sm table-striped">
+        <table class="table" *ngIf="users">
+          <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let u of users ; let i = index">
+            <th scope="row">{{i}}</th>
+            <td>{{u.username}}</td>
+            <td>{{u.email}}</td>
+            <td>ABONNE</td>
+
+            <td>
+              <button class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top"
+                      title="Ajouter comme admin" data-original-title="addAdmin" (click)="onAddAdmin(u)"><i
+                class="fas fa-user-shield"></i></button>
+              <button class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Supprimer"
+                      data-original-title="Delete" (click)="onDelete(u)"><i class="fa fa-trash font-14"></i></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

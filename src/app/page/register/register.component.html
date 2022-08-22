@@ -1,0 +1,95 @@
+<div class="container-fluid  d-flex justify-content-center">
+  <div class="card col-md-5 ">
+    <h2 class="card-title ">Inscription</h2>
+    <div class="card-body">
+      <app-alert></app-alert>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+
+        <div class="row">
+          <div class="col">
+
+            <div class="form-group">
+              <input type="text" placeholder="Nom" formControlName="nom" class="form-control"
+                     [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"/>
+              <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+                <div *ngIf="f.nom.errors.required">Nom obligatoire.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <input type="text" placeholder="Prenom" formControlName="prenom" class="form-control"
+                     [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"/>
+              <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+                <div *ngIf="f.prenom.errors.required">Prénom obligatoire.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-user"></i></div>
+            </div>
+            <input type="text" placeholder="Nom d'utilisateur" formControlName="username" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">Nom d'utilisateur obligatoire.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+            </div>
+            <input type="email" placeholder="Email" formControlName="email"  ngModel email class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email obligatoire</div>
+              <div *ngIf="f.email.errors">Veuillez saisir une adresse e-mail valide.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-lock"></i></div>
+            </div>
+            <input type="password" placeholder="Mot de passe" formControlName="password" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Mot de passe obligatoire</div>
+              <div *ngIf="f.password.errors.minlength">Mot de passe doit être au moins de 6 caractères</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+            <label class="custom-control-label font-weight-light" for="customCheck">J'accepte les conditions et la
+              politique</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <button  class="btn btn-primary">S'inscrire</button>
+
+          <a routerLink="/" class="btn btn-link">Annuler</a>
+          <br>
+        </div>
+      </form>
+      <p class="card-text font-weight-light text-center">OU</p>
+      <form>
+        <button class="btn btn-block " id="facebookbtn"><i class="fab fa-facebook-square "></i>
+          S'inscrire avec Facebook
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

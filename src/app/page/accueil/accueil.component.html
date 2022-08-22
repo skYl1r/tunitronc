@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-" id="side">
+      <!--<app-side-nav></app-side-nav>-->
+      <nav class="container" id="sidebar">
+
+
+        <ul class="list-unstyled components">
+          <!--<h6>Toute la Tunisie</h6>-->
+          <li>
+            <div class="form-group">
+              <select (change)="getVille($event)" name="gouvernorat" class="form-control" >
+                <option *ngFor="let g of gov" [value]=g.name>
+                  {{g.name}}
+                </option>
+              </select>
+
+            </div>
+          </li>
+          <li>
+            <div class="form-group" >
+              <select (change)="changeVille($event)" name="ville"  class="form-control" >
+                <option>Ville</option>
+                <option *ngFor="let v of ville" [value]="v">
+                  {{v}}
+                </option>
+              </select>
+            </div>
+          </li>
+
+
+        </ul>
+        <ul class="list-unstyled components" *ngIf="categories" >
+          <h6>Nos Catégories</h6>
+          <li *ngFor="let cat of categories;let i = index">
+            <a  href="#x{{i}}" (click)="getSubCategories(cat)"
+                data-toggle="collapse"  class="dropdown-toggle"  ><label [innerHTML]="balise[i]"></label> {{cat.nom}}</a>
+
+            <ul class="collapse list-unstyled" data-parent="#sidebar" id="x{{i}}">
+              <li>
+                <a  *ngFor="let scat of subCatgories" (click)="getAnnoncesBySousCategorie(scat.nom)">{{scat.nom}}</a>
+              </li>
+            </ul>
+
+          </li>
+        </ul>
+        <hr>
+
+      </nav>
+
+    </div>
+    <div class="col-9">
+      <app-bienvenue *ngIf="!result && !recherche"></app-bienvenue>
+      <app-resultats  *ngIf="result && !recherche" [annonces]="annonces"></app-resultats>
+      <app-resultats2 *ngIf="recherche" [annonces]="annonces" [motCle]="motCle"></app-resultats2>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

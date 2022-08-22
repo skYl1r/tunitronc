@@ -1,0 +1,176 @@
+<div class="container-fluid d-flex justify-content-center">
+  <div class="card text-left">
+
+    <form [formGroup]="annonceForm" (ngSubmit)="onSaveAnnonnce()">
+
+      <div class="form-style-10">
+        <h1>Ajouter un Troc<span>remplir ce formulaire..</span></h1>
+
+        <div class="section"><span>1</span>Photos</div>
+        <div class="inner-wrap">
+
+          <div class="form-group">
+            <label>Ajouter des photos </label>
+            <div class="input-group">
+              <div class="wrapper">
+
+                <div class="box">
+                  <div class="js--image-preview">
+                    <span style="color:red;" *ngIf="message">{{message}}</span>
+                    <img [src]="'data:image/jpeg;base64,' +imgURL1" height="200" *ngIf="imgURL1">
+                  </div>
+                  <div class="upload-options">
+                    <div class="form-group">
+                      <label>
+                        <input #file1 type="file" class="image-upload" accept="image/*"
+                               (change)="preview1(file1.files)"
+                               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.image1.errors }"/>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="box">
+                  <div class="js--image-preview">
+                    <span style="color:red;" *ngIf="message">{{message}}</span>
+                    <img [src]="'data:image/jpeg;base64,' +imgURL2" height="200" *ngIf="imgURL2">
+                  </div>
+                  <div class="upload-options">
+                    <label>
+                      <input #file2 type="file" class="image-upload" accept="image/*"
+                             (change)="preview2(file2.files)"
+                             class="form-control" [ngClass]="{ 'is-invalid': submitted && f.image2.errors }"/>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="box">
+                  <div class="js--image-preview">
+                    <span style="color:red;" *ngIf="message">{{message}}</span>
+                    <img [src]="'data:image/jpeg;base64,' +imgURL3" height="200" *ngIf="imgURL3">
+                  </div>
+                  <div class="upload-options">
+                    <label>
+                      <input #file3 type="file" class="image-upload" accept="image/*"
+                             (change)="preview3(file3.files)"
+                             class="form-control" [ngClass]="{ 'is-invalid': submitted && f.image3.errors }"/>
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section"><span>2</span>Informations sur le troc</div>
+        <div class="inner-wrap">
+
+          <div class="form-group">
+            <label>Titre <input type="text" name="titre" formControlName="titre" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.titre.errors }"/></label>
+            <div *ngIf="submitted && f.titre.errors" class="invalid-feedback">
+              <div *ngIf="f.titre.errors.required">titre is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Catégorie</label>
+            <select *ngIf="catgories" (change)="getSubCategories($event.target.value)" name="categorie"
+                    formControlName="categorie"
+                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f.categorie.errors }">
+              <option *ngFor="let cat of catgories" [value]="cat.nom">
+                {{cat.nom}}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Sous catégorie</label>
+            <select *ngIf="subCatgories" name="sousCategorie" formControlName="sousCategorie"
+                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sousCategorie.errors }">
+              <option *ngFor="let scat of subCatgories" [value]=scat.nom>
+                {{scat.nom}}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Description
+              <textarea class="form-control" rows="5" name="description" formControlName="description"
+                        [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+              </textarea>
+            </label>
+          </div>
+
+          <!--<div class="custom-control custom-switch">-->
+            <!--<input type="checkbox" class="custom-control-input" id="echange" (change)="onShowEchange($event)">-->
+            <!--<label class="custom-control-label" for="echange">Accepter l'échange avec</label>-->
+          <!--</div>-->
+
+          <!--<div class="form-group" *ngIf="showEchange">-->
+            <!--<div class="form-group">-->
+              <!--<textarea class="form-control" rows="5" name="echageAvec">-->
+              <!--</textarea>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!-- Normal switch -->
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="location" (change)="onShowLocation($event)">
+            <label class="custom-control-label" for="location">Contre l'Argent</label>
+          </div>
+          <div class="form-group" *ngIf="showLocation">
+            <input class="form-control" type="number" placeholder="Prix location par ">
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+              <option selected>Choisissez période</option>
+              <option value="1">Heure</option>
+              <option value="2">Jour</option>
+              <option value="3">Mois</option>
+              <option value="3">Année</option>
+            </select>
+          </div>
+
+
+        </div>
+
+
+        <div class="form-group">
+          <label>Governaurat</label>
+          <select (change)="getVille($event)" name="gouvernorat" formControlName="gouvernorat"
+                  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.gouvernorat.errors }">
+            <option selected>Choisissez gouvernorat</option>
+            <option *ngFor="let g of gov" [value]=g.name>
+              {{g.name}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="ville">
+          <label>Ville</label>
+          <select name="ville" formControlName="ville"
+                  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ville.errors }">
+            <option selected>Choisissez ville</option>
+            <option *ngFor="let v of ville" [value]="v">
+              {{v}}
+            </option>
+          </select>
+        </div>
+
+
+
+        <!-- ======================================= -->
+
+
+        <div class="inner-wrap">
+
+
+          <div class="button-section">
+            <input type="submit" value="Publier"/>
+          </div>
+
+
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

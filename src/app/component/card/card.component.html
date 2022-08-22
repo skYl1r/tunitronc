@@ -1,0 +1,33 @@
+<div class="container mt-4" *ngIf="annonce">
+  <a  routerLink="/annonces/{{annonce.id}}"  class="card card-inverse card-info">
+
+  <!--<div class="card-img-overlay d-flex justify-content-end">-->
+<!--<a href="like" class="card-link text-success like">-->
+  <!--<i class="fas fa-dollar-sign fa-2x"></i>-->
+<!--</a>-->
+<!--</div>-->
+<img class="card-img-top" src="data:image/jpeg;base64,{{annonce.image1}}">
+<div class="card-block">
+<!--<figure class="profile">-->
+<!--<img src="https://picsum.photos/200/150/?random" class="profile-avatar" alt="">-->
+<!--</figure>-->
+  <h3 class="card-title"><label>{{annonce.titre}}</label></h3>
+</div>
+</a>
+</div>
+
+
+<!--<div class=" container mt-4">-->
+
+  <!--<a href="#" class="card card-inverse card-info">-->
+
+    <!--<img class="card-img-top" src="https://picsum.photos/200/150/?random">-->
+    <!--<div class="card-block">-->
+      <!--<figure class="profile">-->
+        <!--<img src="https://picsum.photos/200/150/?random" class="profile-avatar" alt="">-->
+      <!--</figure>-->
+      <!--<h4 class="card-title">Asus X550</h4>-->
+    <!--</div>-->
+  <!--</a>-->
+<!--</div>-->
+

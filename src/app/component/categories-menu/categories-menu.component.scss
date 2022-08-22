@@ -1,0 +1,48 @@
+.container-fluid {
+  background-color: #00b0f0;
+}
+
+ul {
+  //list-style-type: none;
+  background-color: #00b0f0;
+}
+
+li a {
+  //display: block;
+  color: white;
+
+}
+
+
+.dropdown-menu {
+  .dropdown-item {
+    color: #00b0f0;
+
+  }
+}
+
+//menu hover only for desktop
+//@media (min-width: 1140px) {
+//  .dropdown-menu{margin-top:0; }
+.dropdown.hover:hover .dropdown-menu {
+  display: block !important;
+}
+
+//}
+
+
+// styling - just for view - not required
+.nav-link {
+  border-radius: 5px;
+  margin: 5px 0
+}
+
+.nav-item {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.nav-item:hover .nav-link {
+  background: #00b0f0;
+}
+

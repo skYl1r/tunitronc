@@ -1,0 +1,103 @@
+<div class="container ">
+  <h4 class="title"><a routerLink="/Dashboard">Dashboard</a> / Gestion des Annonces</h4>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><h6>Liste Annonces</h6></div>
+    </div>
+    <div class="card-body">
+      <div  class=" table-hover table-sm table-striped">
+        <table id="tableAnnonce" class="table" *ngIf="annonces">
+          <thead class="theat thead-light">
+          <tr>
+            <th>#</th>
+            <th>Annonceur</th>
+            <th>Titre</th>
+            <th>Date publication</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let a of annonces ; let i = index">
+            <td scope="row">{{i}}</td>
+            <td>{{a.username}}</td>
+            <td>{{a.titre}}</td>
+            <td>{{a.datePublication | date : 'dd/MM/y, HH:mm:ss '}}</td>
+            <td>
+              <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" data-placement="top"
+                      title="Consulter Annonce"
+                      data-original-title="Consulter" (click)="consulter(a.id)"><i class="fas fa-eye"></i></button>
+              <button class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Supprimer"
+                      data-original-title="Delete" (click)="onSupprimer(a)"><i class="fa fa-trash font-14"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="isSuperAdmin">
+    <div class="card-header" (click)="showit()">
+      <div class="card-title"><h6>Activités Gestion Annonces<i class="fas fa-chevron-down"></i></h6></div>
+    </div>
+    <div class="card-body " *ngIf="show">
+      <div class="table  table-hover table-sm table-striped">
+        <table class="table" *ngIf="gestion">
+          <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>Details</th>
+            <th>Cause</th>
+            <th>Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let g of gestion ; let i = index">
+            <th scope="row">{{i}}</th>
+            <td><b>{{g.idAdmin}}</b> {{g.typeGestion}} annonce <b><a href=""
+                                                                     (click)="consulter(g.idAnnonce)">{{g.idAnnonce}}</a></b>
+            </td>
+            <td>{{g.cause}}</td>
+            <td>{{g.dateGestion | date : 'dd/MM/y, HH:mm:ss '}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="supprimerAnnonceModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Supprimer Annonce</h4>
+        <button type="button" class="close" (click)="hideSupprimerModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <label>Cause :</label>
+        <textarea name="story" rows="5" cols="50" [(ngModel)]="cause">
+        </textarea>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="envoyerSupprimerModal(cause)">Envoyer</button>
+        <button type="button" class="btn btn-danger" (click)="hideSupprimerModal()">Annuler</button>
+
+        <!-- this button is hidden, used to close from typescript -->
+        <button type="button" id="close-supprimerAnnonceModal" data-dismiss="modal" style="display: none">Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

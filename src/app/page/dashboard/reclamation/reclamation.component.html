@@ -1,0 +1,31 @@
+<div class="container ">
+  <h4 class="title"><a routerLink="/Dashboard">Dashboard</a> / Traiter Réclamations</h4>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><h6>Réclamations</h6></div>
+    </div>
+    <div class="card-body" >
+      <div class="table  table-hover table-sm table-striped">
+        <table class="table" *ngIf="reclamation">
+          <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>Details</th>
+            <th>Cause</th>
+            <th>Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let r of reclamation ; let i = index">
+            <th scope="row">{{i}}</th>
+            <td><b>{{r.idAbonne}}</b> a signalé annonce <b><a routerLink="/annonces/{{r.idAnnonce}}" >{{r.idAnnonce}}</a></b>
+            </td>
+            <td>{{r.cause}}</td>
+            <td>{{r.date | date : 'dd/MM/y, HH:mm:ss '}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

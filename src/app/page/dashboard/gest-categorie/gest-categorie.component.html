@@ -1,0 +1,130 @@
+<div class="container-fluid">
+  <h4 class="title"><a routerLink="/Dashboard">Dashboard</a> / Gestion des Catégories</h4>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><h6>Liste Catégories</h6></div>
+    </div>
+    <div class="card-body" *ngIf="catgories">
+
+
+      <div *ngIf="mode=='edit-cat'" class="container" >
+        <form #f="ngForm" class="col-md-6" (ngSubmit)="onUpdateCat(f.value)">
+          <div class="form-group">
+            <label class="control-label">Modifier Nom :</label>
+            <input type="text" name="nom" [(ngModel)]="nameCat" class="form-control">
+          </div>
+          <button class="btn btn-success" type="submit">valider</button>
+          <button class="btn btn-secondary" (click)="mode=''">annuler</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="table  table-hover table-striped table-sm">
+      <table class="table" *ngIf="catgories">
+        <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Nom</th>
+          <th>Sous Catégories</th>
+          <th>Modifier</th>
+          <th>Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let cat of catgories ; let i = index ;">
+          <th scope="row">{{i}}</th>
+          <td>{{cat.nom}}</td>
+
+          <td>
+            <button class="btn btn-default btn-xs" (click)="onGetSubCategories(cat)"><i class="fas fa-list"></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-default btn-xs" (click)="onEditCat(cat)"><i class="far fa-edit"></i></button>
+          </td>
+          <td>
+            <button class="btn btn-default btn-xs" (click)="onDeleteCat(cat)"><i class="fa fa-trash font-14"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div  class="container">
+      <button class="btn btn-success" (click)="ajouterCat()"><i class="fa fa-plus"></i> Ajouter Catégorie</button>
+      <div *ngIf="mode == 'new-cat'" class="col-md-6">
+        <form #f="ngForm" (ngSubmit)="onSaveCat(f.value)">
+          <div class="form-group ">
+            <label class="control-label">Nom Catégorie :</label>
+            <input type="text" name="nom" ngModel class="form-control">
+          </div>
+          <button class="btn btn-success" type="submit">valider</button>
+          <button class="btn btn-secondary" (click)="mode=''">annuler</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><h6>Liste Sous Catégories</h6></div>
+    </div>
+    <div class="card-body" *ngIf="subCatgories">
+
+      <div *ngIf="mode=='edit-sub-cat'" class="container">
+        <form #f="ngForm" class="col-md-6" (ngSubmit)="onUpdateSubCat(f.value)">
+          <div class="form-group">
+            <label class="control-label">Modifier Nom :</label>
+            <input type="text" name="nom" [(ngModel)]="nameSubCat" class="form-control">
+          </div>
+          <button class="btn btn-success" type="submit">valider</button>
+          <button class="btn btn-secondary" (click)="mode=''">annuler</button>
+        </form>
+      </div>
+      <div class="table table-hover table-striped table-sm">
+        <table class="table">
+          <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>Nom Catégories</th>
+            <th>Nom Sous Catégories</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let scat of subCatgories ; let i = index">
+            <th scope="row">{{i}}</th>
+            <td>{{currentCategory.nom}}</td>
+            <td>{{scat.nom}}</td>
+            <td>
+              <button class="btn btn-default btn-xs" (click)="onEditsubCat(scat)"><i class="far fa-edit"></i></button>
+            </td>
+            <td>
+              <button class="btn btn-default btn-xs" (click)="onDeleteSubCat(scat)"><i class="fa fa-trash font-14"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="container">
+        <button class="btn btn-success" (click)="mode = 'new-sub-cat'"><i class="fa fa-plus"></i> Ajouter Sous Catégories
+        </button>
+        <div *ngIf="mode == 'new-sub-cat'" class="col-md-6">
+          <form #f="ngForm" (ngSubmit)="onSaveSubCat(f.value)">
+            <div class="form-group">
+              <label class="control-label">Nom Sous Catégories :</label>
+              <input type="text" name="nom" ngModel class="form-control">
+            </div>
+            <button class="btn btn-success" type="submit">valider</button>
+            <button class="btn btn-secondary" (click)="mode=''">annuler</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

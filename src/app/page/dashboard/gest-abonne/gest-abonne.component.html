@@ -1,0 +1,182 @@
+<div class="container ">
+  <h4 class="title"><a routerLink="/Dashboard">Dashboard</a> / Gestion des Abonnés</h4>
+
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><h6>Liste Abonnés</h6></div>
+    </div>
+    <div class="card-body">
+      <div class="table  table-hover table-sm table-striped">
+        <table class="table" *ngIf="users">
+          <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let u of users ; let i = index">
+            <th scope="row">{{i}}</th>
+            <td>{{u.username}}</td>
+            <td>{{u.email}}</td>
+            <td>ABONNE</td>
+
+            <td>
+              <button class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top"
+                      title="Consulter Profil" data-original-title="consulter" (click)="consulteProfil(u.username)">
+                <i class="fas fa-eye"></i></button>
+              <button class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Supprimer"
+                      data-original-title="Delete" (click)="onSupprimer(u.username)"><i class="fa fa-trash font-14"></i>
+              </button>
+
+              <button *ngIf="u.etat" class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" data-placement="top"
+                      title="Bloquer"
+                      data-original-title="bloquer" (click)="onBlock(u.username)"><i class="fas fa-user-lock"></i>
+              </button>
+
+              <button *ngIf="!u.etat" class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" data-placement="top"
+                      title="Debloquer"
+                      data-original-title="bloquer" (click)="onDeblock(u.username)"><i class="fas fa-user-check"></i>
+              </button>
+
+
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card" *ngIf="isSuperAdmin">
+    <div class="card-header" (click)="showit()">
+      <div class="card-title"><h6>Activités Gestion Abonnés <i class="fas fa-chevron-down"></i></h6></div>
+    </div>
+    <div class="card-body " *ngIf="show">
+      <div class="table  table-hover table-sm table-striped">
+        <table class="table" *ngIf="gestion">
+          <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>Details</th>
+            <th>Cause</th>
+            <th>Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let g of gestion ; let i = index">
+            <th scope="row">{{i}}</th>
+            <td><b>{{g.idAdmin}}</b> {{g.typeGestion}} <b> <a routerLink="/profil/{{g.idAbonne}}">{{g.idAbonne}}</a></b></td>
+            <td>{{g.cause}}</td>
+            <td>{{g.dateGestion | date : 'dd/MM/y, HH:mm:ss '}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modals -->
+
+<!-- The Modal -->
+<div class="modal fade" id="bloquerModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Bloquer Abonné</h4>
+        <button type="button" class="close" (click)="hideBloquerModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <label>Cause :</label>
+        <textarea id="story" name="story" rows="5" cols="50" [(ngModel)]="cause">
+        </textarea>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="envoyerBloquerModal(cause)">Envoyer</button>
+        <button type="button" class="btn btn-danger" (click)="hideBloquerModal()">Annuler</button>
+
+        <!-- this button is hidden, used to close from typescript -->
+        <button type="button" id="close-bloquerModal" data-dismiss="modal" style="display: none">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="debloquerModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Debloquer Abonné</h4>
+        <button type="button" class="close" (click)="hideDebloquerModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <label>Cause :</label>
+        <textarea name="story" rows="5" cols="50" [(ngModel)]="cause">
+        </textarea>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="envoyerDebloquerModal(cause)">Envoyer</button>
+        <button type="button" class="btn btn-danger" (click)="hideDebloquerModal()">Annuler</button>
+
+        <!-- this button is hidden, used to close from typescript -->
+        <button type="button" id="close-debloquerModal" data-dismiss="modal" style="display: none">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="supprimerModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Supprimer Abonné</h4>
+        <button type="button" class="close" (click)="hideSupprimerModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <label>Cause :</label>
+        <textarea name="story" rows="5" cols="50" [(ngModel)]="cause">
+        </textarea>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="envoyerSupprimerModal(cause)">Envoyer</button>
+        <button type="button" class="btn btn-danger" (click)="hideSupprimerModal()">Annuler</button>
+
+        <!-- this button is hidden, used to close from typescript -->
+        <button type="button" id="close-supprimerModal" data-dismiss="modal" style="display: none">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,45 @@
+<nav class="container" id="sidebar">
+
+
+  <ul class="list-unstyled components">
+    <!--<h6>Toute la Tunisie</h6>-->
+    <li>
+      <div class="form-group">
+        <select (change)="getVille($event)" name="gouvernorat" class="form-control" >
+          <option *ngFor="let g of gov" [value]=g.name>
+            {{g.name}}
+          </option>
+        </select>
+
+      </div>
+    </li>
+    <li>
+      <div class="form-group" >
+        <select name="ville"  class="form-control" >
+          <option>Ville</option>
+          <option *ngFor="let v of ville" [value]="v">
+            {{v}}
+          </option>
+        </select>
+      </div>
+    </li>
+
+
+  </ul>
+  <ul class="list-unstyled components" *ngIf="categories" >
+    <h6>Nos Catégories</h6>
+    <li *ngFor="let cat of categories;let i = index">
+      <a  href="#x{{i}}" (click)="getSubCategories(cat)"
+          data-toggle="collapse"  class="dropdown-toggle"  ><label [innerHTML]="balise[i]"></label> {{cat.nom}}</a>
+
+      <ul class="collapse list-unstyled" data-parent="#sidebar" id="x{{i}}">
+        <li>
+          <a  *ngFor="let scat of subCatgories"  routerLink="sc/{{scat.nom}}">{{scat.nom}}</a>
+        </li>
+      </ul>
+
+    </li>
+  </ul>
+  <hr>
+
+</nav>
