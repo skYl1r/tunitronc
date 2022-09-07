@@ -42,6 +42,11 @@ export class UserService {
     return this.http.get(this.host + '/utilisateurs/search/findUtilisateurByUsername?username=' + username, );
   }
 
+  updateUser(user: User): Observable < any > {
+    const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
+    return this.http.post(this.host + '/updateUser', user,  {headers: headers});
+  }
+
   deleteUser(url): Observable < any > {
     const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
     return this.http.delete(url, {headers: headers});

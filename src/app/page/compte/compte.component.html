@@ -8,7 +8,7 @@
         <div class="ibox">
           <div class="ibox-body text-center">
             <div class="mr-sm-4">
-              <img class="img-circle" src="{{user.image}}"/>
+              <img class="img-circle" src="{{user.image}}" />
             </div>
 
             <h5 class="font-strong m-b-10 m-t-10">{{user.nom}} {{user.prenom}}</h5>
@@ -18,7 +18,7 @@
               <li><label><b>À propos :</b></label></li>
               <li><label><i class="fas fa-clock-o"> Dernière connexion :</i> 1 jour</label></li>
               <li><label><i class="fas fa-calendar "> Inscrite le :</i> {{user.dateInscription | date: 'dd MMMM y'}}
-              </label></li>
+                </label></li>
             </ul>
             <hr>
             <ul id="row2" class="row">
@@ -72,23 +72,27 @@
                 <div class="container col-10">
                   <h4 class="m-y-2">Modifier Profil</h4>
                   <br>
-                  <form role="form">
+                  <app-alert></app-alert>
+                  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Nom</label>
                       <div class="col-lg-9">
-                        <input class="form-control" type="text" value="{{user.prenom}}">
+                        <input class="form-control" type="text" name="prenom" formControlName="prenom"
+                          [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Prenom</label>
                       <div class="col-lg-9">
-                        <input class="form-control" type="text" value="{{user.nom}}">
+                        <input class="form-control" type="text" name="nom" formControlName="nom"
+                          [ngClass]="{ 'is-invalid': submitted && f.nom.errors }">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Email</label>
                       <div class="col-lg-9">
-                        <input class="form-control" type="email" value="{{user.email}}">
+                        <input class="form-control" name="email" type="email" formControlName="email"
+                          [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
                       </div>
                     </div>
 
@@ -96,16 +100,27 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Addresse</label>
                       <div class="col-lg-9">
-                        <input class="form-control" type="text" value="" placeholder="Rue">
+                        <input class="form-control" type="text" formControlName="rue" value="" placeholder="Rue">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label"></label>
                       <div class="col-lg-6">
-                        <input class="form-control" type="text" value="" placeholder="Ville">
+                        <select (change)="getVille($event)" name="gouvernorat" formControlName="gouvernorat"
+                          class="form-control">
+                          <option selected>Choisissez gouvernorat</option>
+                          <option *ngFor="let g of gov" [value]=g.name>
+                            {{g.name}}
+                          </option>
+                        </select>
                       </div>
                       <div class="col-lg-3">
-                        <input class="form-control" type="text" value="" placeholder="Gouvernorat">
+                        <select name="ville" formControlName="ville" class="form-control">
+                          <option selected>Choisissez ville</option>
+                          <option *ngFor="let v of ville" [value]="v">
+                            {{v}}
+                          </option>
+                        </select>
                       </div>
                     </div>
 
@@ -113,14 +128,15 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label">Mot de passe</label>
                       <div class="col-lg-9">
-                        <input class="form-control" type="password" value="" placeholder="Mot de passe">
+                        <input class="form-control" type="password" value="" formControlName="password"
+                          [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Mot de passe">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label form-control-label"></label>
                       <div class="col-lg-9 ">
                         <div class="pull-right">
-                          <input type="button" class="btn btn-info btn-rounded m-b-5 " value="Valider">
+                          <input type="submit" class="btn btn-info btn-rounded m-b-5 " value="Valider">
                           <input type="reset" class="btn btn-default btn-rounded m-b-5 " value="Annuler">
                         </div>
                       </div>
@@ -135,4 +151,3 @@
     </div>
   </div>
 </div>
-
