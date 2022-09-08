@@ -50,7 +50,7 @@ export class AnnonceComponent implements OnInit {
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       // console.log(diffDays);
       this.deposeDate = diffDays - 1;
-
+      this.isFavoris();
     }, err => {
       console.log(err);
     });
@@ -121,11 +121,36 @@ export class AnnonceComponent implements OnInit {
     });
   }
 
+  handleFavoris(){
+    if(this.favoris){
+      this.supprimerFavoris();
+    }else{
+      this.ajouterFavoris();
+    }
+  }
+
   ajouterFavoris() {
-    this.user.favoris.push(this.annonce.id);
-    console.log(this.user.favoris);
-    this.userService.ajouterFavoris(this.user).subscribe( data => {
+    this.userService.ajouterFavoris(this.annonce.id).subscribe( data => {
       this.favoris = true;
+    });
+  }
+
+  supprimerFavoris() {
+    this.userService.supprimerFavoris(this.annonce.id).subscribe( data => {
+      this.favoris = false;
+    });
+  }
+  
+  isFavoris() {
+    this.userService.isFavoris(this.annonce.id).subscribe( data => {
+      if(data === true)
+        this.favoris = true;
+      else
+        this.favoris = false;
+    },
+    error => {
+      this.favoris = false;
+      console.log(error);
     });
   }
 
@@ -145,9 +170,4 @@ export class AnnonceComponent implements OnInit {
     document.getElementById('close-signalerAnnonceModal').click();
   }
 
-
-
 }
-
-
-

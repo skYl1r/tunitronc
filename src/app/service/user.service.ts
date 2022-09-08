@@ -101,9 +101,24 @@ export class UserService {
     return this.http.post(this.host + '/supprimerAbonne', params , {headers: headers});
   }
 
-  ajouterFavoris(user: any) {
-    let url = user._links.self.href
+  ajouterFavoris(id: string) {
     const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
-    return this.http.patch(url, user, {headers: headers});
+    let params = new HttpParams()
+    .set('id', id);
+    return this.http.patch(this.host + '/addFavoris', {}, {headers: headers, params: params});
+  }
+
+  supprimerFavoris(id: string) {
+    const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
+    let params = new HttpParams()
+    .set('id', id);
+    return this.http.patch(this.host + '/deleteFavoris', {}, {headers: headers, params: params});
+  }
+
+  isFavoris(id: string) {
+    const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
+    let params = new HttpParams()
+    .set('id', id);
+    return this.http.get(this.host + '/isFavoris', {headers: headers, params: params});
   }
 }
