@@ -1,5 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import { AlertService } from 'src/app/service/alert.service';
 import {AnnonceService} from '../../service/annonce.service';
 import {UserService} from '../../service/user.service';
 
@@ -23,6 +24,7 @@ export class AnnonceComponent implements OnInit {
               private annonceService: AnnonceService,
               private userService: UserService,
               private router: Router,
+              private alertService: AlertService
   ) {
     this.activatedRoute.params.subscribe(params => {
       // console.log(params);
@@ -151,6 +153,19 @@ export class AnnonceComponent implements OnInit {
     error => {
       this.favoris = false;
       console.log(error);
+    });
+  }
+
+  onModifier(){
+    this.router.navigate(['/']);
+  }
+
+  onSupprimer(){
+    this.annonceService.deleteAnnonceURL(this.annonce.id).subscribe( data => {
+      this.router.navigate(['/']);
+    },
+    error => {
+      this.alertService.error("Error lors du suppression de l'annonce", false);
     });
   }
 

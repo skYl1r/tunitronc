@@ -103,7 +103,12 @@
         </ul>
       </div>
       <div class="card-footer text-right">
-        <a (click)="onSignaler()">Signaler</a>
+        <div class="float-left" *ngIf="annonce.username == user.username">
+          <button class="btn btn-primary" (click)="onModifier()">Modifier</button>
+          <button class="ml-2 btn btn-danger" (click)="onSupprimer()">Supprimer</button>
+        </div>
+        <button class="btn btn-outline-secondary" (click)="onSignaler()">Signaler</button>
+        <app-alert></app-alert>
       </div>
     </div>
   </div>

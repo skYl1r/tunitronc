@@ -106,8 +106,8 @@ export class AnnonceService {
   }
 
 
-  deleteAnnonceURL(url): Observable < any > {
+  deleteAnnonceURL(id: string): Observable < any > {
     const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
-    return this.http.delete(url, {headers: headers});
+    return this.http.delete(this.host + '/annonces/' + id, {headers: headers});
   }
 }
